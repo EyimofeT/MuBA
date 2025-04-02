@@ -9,5 +9,6 @@ import { authcheck } from '../auth/middleware.js';
 
 
 router.get("/view",authcheck, view_user)
+
 router.get("/view/all",authcheck, view_all_user)
 export default router

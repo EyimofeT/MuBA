@@ -36,12 +36,6 @@ export const update_profile_middleware = async (req, res, next) => {
 
         const {name, bio, genre } = req.body
 
-        // if (!name) throw new custom_error("name required", "02")
-        // if (!bio) throw new custom_error("bio required", "02")
-        // if (!genre) throw new custom_error("genre required", "02")
-
-        // if(req.files.image)  throw new custom_error("file - image required","02");
-
         // Define allowed fields
         const allowed_keys = ["name", "bio", "genre"];
         

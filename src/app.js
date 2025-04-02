@@ -3,7 +3,7 @@ import helmet from 'helmet';
 // import xss from 'xss-clean';
 import morgan from "morgan";
 import {format_request_middleware} from "./core/format_request_body.js"
-import { getenv } from './core/read_env.js';
+
 import auth_router from "./api/auth/routes.js"
 import artist_router from "./api/artist/routes.js"
 import event_router from "./api/event/routes.js"
