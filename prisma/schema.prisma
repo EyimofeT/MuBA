@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(user)
+  created_at DateTime @default(now())
+
+  bookings Booking[]
+  Artist   Artist?
+}
+
+model Artist {
+  id       String  @id @default(uuid())
+  name     String
+  bio      String?
+  genre    String
+  image_url String?
+  user_id   String  @unique
+  created_at DateTime @default(now())
+  user     User    @relation(fields: [user_id], references: [id])
+
+  events Event[]
+}
+
+model Event {
+  id       String   @id @default(uuid())
+  name     String
+  date     DateTime
+  location String
+  price    Float
+  artist_id String
+  artist   Artist   @relation(fields: [artist_id], references: [id])
+
+  bookings Booking[]
+}
+
+model Booking {
+  id        String   @id @default(uuid())
+  user_id    String
+  event_id   String
+  status    String   @default("pending") // pending, confirmed, cancelled
+  created_at DateTime @default(now())
+
+  user  User  @relation(fields: [user_id], references: [id])
+  event Event @relation(fields: [event_id], references: [id])
+}
+
+enum Role {
+  user
+  admin
+}
