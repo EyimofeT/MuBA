@@ -52,6 +52,8 @@ The **Music Booking App API** is a backend service for managing artist profiles,
     "GOOGLE_DRIVE_PHOTO_UPLOAD_FOLDER_ID_TEST":""
 
    ```
+
+   Get a google account service key, rename to 'google_service_key.json' in root directory
 4. **Run database migrations:**
    ```sh
    npx prisma migrate dev --name init

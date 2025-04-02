@@ -10,6 +10,7 @@ const prisma = new PrismaClient({
 const transaction_timeout = 200000
 
 let booking_obj= {
+    id:true,
     user_id:true,
     event_id:true,
     status:true,
@@ -97,6 +98,27 @@ export async function view_all_booking(){
       }
       catch (err) {
         console.log("Something went wrong in view_all_booking : " + err)
+        return false;
+      } finally {
+        await prisma.$disconnect();
+      }
+}
+
+
+export async function delete_booking_by_id(id){
+    try {
+        let booking = await prisma.booking.delete({
+          where:{
+            id
+          }
+        })
+    
+        if (!booking) return false
+    
+        return booking
+      }
+      catch (err) {
+        console.log("Something went wrong in delete_booking_by_id : " + err)
         return false;
       } finally {
         await prisma.$disconnect();

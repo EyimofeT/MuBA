@@ -29,3 +29,22 @@ export const create_booking_middleware = async (req, res, next) => {
         });
     };
 }
+
+export const delete_booking_middleware = async (req, res, next) => {
+    try {
+
+        const {booking_id } = req.query
+        if (!booking_id || booking_id == undefined) throw new custom_error("booking_id required", "02")
+
+        next();
+    }
+    catch (err) {
+        return res.status(400).json({
+            code: 400,
+            status: "failed",
+            response_code: err.code,
+            message: err.message,
+            error: "An Error Occured!",
+        });
+    };
+}
