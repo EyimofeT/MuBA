@@ -6,6 +6,9 @@ import {format_request_middleware} from "./core/format_request_body.js"
 import { getenv } from './core/read_env.js';
 import auth_router from "./api/auth/routes.js"
 import artist_router from "./api/artist/routes.js"
+import event_router from "./api/event/routes.js"
+import user_router from "./api/user/routes.js"
+import booking_router from "./api/Booking/routes.js"
 const app = express();
 
 // set security HTTP headers
@@ -39,8 +42,10 @@ app.use(format_request_middleware)
 
 let base_route = `/api/v1/`
 app.use(`${base_route}auth`,auth_router);
-app.use(`${base_route}artist`,artist_router);
-
+app.use(`${base_route}artist`,artist_router); 
+app.use(`${base_route}event`,event_router);
+app.use(`${base_route}user`,user_router); 
+app.use(`${base_route}booking`,booking_router);
 
 // Catch-all route for non-existing endpoints
 app.use((req, res) => {

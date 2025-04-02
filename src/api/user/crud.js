@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { getenv } from "../../core/read_env.js";
 import { hash_string } from "../auth/util.js";
-// import { encrypt } from "../util/encrypt.js";
 const prisma = new PrismaClient({
   datasources: {
     db: {
@@ -79,3 +78,21 @@ export async function get_user_by_user_id(id) {
    await prisma.$disconnect();
  }
 }
+
+
+export async function get_all_user() {
+  try{
+   let user = await prisma.user.findMany({
+     select:user_obj
+    })
+    if(!user) return false
+    
+    return user
+ } catch (err) {
+  console.log("Something went wrong in get_all_user: " + err)
+   return false;
+ } finally {
+   await prisma.$disconnect();
+ }
+}
+
